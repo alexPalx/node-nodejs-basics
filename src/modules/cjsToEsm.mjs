@@ -6,8 +6,8 @@ import { createRequire } from 'module';
 import './files/c.js';
 
 const require = createRequire(import.meta.url)
-const __dirname = url.fileURLToPath(import.meta.url);
-const __filename = path.dirname(__dirname);
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const random = Math.random();
 
 let unknownObject;
