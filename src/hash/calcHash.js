@@ -1,18 +1,17 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as url from 'url';
-import * as crypto from 'crypto';
+import { createReadStream } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { createHash } from 'crypto';
 
 export const calculateHash = async () => {
-    const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-    const filesFolderPath = path.join(__dirname, 'files');
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const filesFolderPath = join(__dirname, 'files');
     const fileName = 'fileToCalculateHashFor.txt';
+    const filePath = join(filesFolderPath, fileName);
 
-    const filePath = path.join(filesFolderPath, fileName);
+    const hash = createHash('sha256');
 
-    const hash = crypto.createHash('sha256');
-
-    const readStream = fs.createReadStream(filePath);
+    const readStream = createReadStream(filePath);
 
     readStream.on('data', (data) => {
         hash.update(data);

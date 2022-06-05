@@ -1,15 +1,15 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as url from 'url';
+import { readFile } from 'fs/promises';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 export const read = async () => {
-    const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-    const filesFolderPath = path.join(__dirname, 'files');
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const filesFolderPath = join(__dirname, 'files');
     const fileName = 'fileToRead.txt';
 
-    const filePath = path.join(filesFolderPath, fileName);
+    const filePath = join(filesFolderPath, fileName);
 
-    const fileContent = await fs.promises.readFile(filePath)
+    const fileContent = await readFile(filePath)
         .catch(() => {
             throw new Error('FS operation failed')
         });

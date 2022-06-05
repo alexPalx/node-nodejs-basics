@@ -1,13 +1,13 @@
-import * as path from 'path';
-import * as url from 'url';
+import { dirname, sep as pathSeparator } from 'path';
+import { fileURLToPath } from 'url';
 import { release, version } from 'os';
 import { createServer as createServerHttp } from 'http';
 import { createRequire } from 'module';
 import './files/c.js';
 
 const require = createRequire(import.meta.url)
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const random = Math.random();
 
 let unknownObject;
@@ -21,7 +21,7 @@ if (random > 0.5) {
 console.log(`
 Release ${release()}
 Version ${version()}
-Path segment separator is "${path.sep}"
+Path segment separator is "${pathSeparator}"
 Path to current file is ${__filename}
 Path to current directory is ${__dirname}
 `);

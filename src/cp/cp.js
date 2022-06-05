@@ -3,6 +3,7 @@
 import { fork } from 'child_process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { stdin } from 'process';
 
 export const spawnChildProcess = async (args) => {
     const __filename = fileURLToPath(import.meta.url);
@@ -11,7 +12,7 @@ export const spawnChildProcess = async (args) => {
 
     const child = fork(filePath, args);
 
-    process.stdin.on('data', (data) =>
+    stdin.on('data', (data) =>
         child.send(data.toString()));
 };
 

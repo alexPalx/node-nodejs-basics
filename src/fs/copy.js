@@ -1,15 +1,15 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as url from 'url';
+import { mkdir, cp } from 'fs/promises';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 export const copy = async () => {
-    const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-    const sourceFolderPath = path.join(__dirname, 'files');
-    const destinationFolderPath = path.join(__dirname, 'files_copy');
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const sourceFolderPath = join(__dirname, 'files');
+    const destinationFolderPath = join(__dirname, 'files_copy');
 
-    await fs.promises.mkdir(destinationFolderPath)
+    await mkdir(destinationFolderPath)
         .then(() =>
-            fs.promises.cp(sourceFolderPath, destinationFolderPath, { recursive: true }))
+            cp(sourceFolderPath, destinationFolderPath, { recursive: true }))
         .catch(() => {
             throw new Error('FS operation failed');
         });
